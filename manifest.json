@@ -1,12 +1,12 @@
 {
-  "name": "Gerador de Códigos - GRATIFLIX ADMIN",
-  "short_name": "GRATIFLIX ADMIN",
-  "start_url": "/Gerador-de-escalas-v3-planos/gerador-de-codigos.html",
+  "name": "GRATIFLIX ADMIN - Gerador de Códigos",
+  "short_name": "ADMIN",
+  "start_url": "./",
   "display": "standalone",
   "background_color": "#000000",
   "theme_color": "#ffcc00",
   "icons": [{
-    "src": "https://cdn-icons-png.flaticon.com/512/3135/3135715.png",
+    "src": "icone.png",
     "sizes": "512x512",
     "type": "image/png"
   }]
