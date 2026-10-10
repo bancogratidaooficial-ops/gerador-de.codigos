@@ -4,23 +4,24 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Gerador de Codigos - GRATIFLIX</title>
-<title>Gerador de Codigos - GRATIFLIX</title>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#ffcc00">
 <link rel="icon" href="icone.png">
-<script>
-if('serviceWorker' in navigator){
-  navigator.serviceWorker.register('sw.js')
-}
-</script>
+<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js')}</script>
 <style>
-
+body{font-family:Arial;background:#000;color:#fff;margin:0;padding:20px;text-align:center}
+.box{border:2px solid #ffcc00;border-radius:16px;padding:20px;max-width:400px;margin:20px auto}
+input,select{width:100%;padding:12px;border-radius:8px;border:none;margin-top:10px}
+button{width:100%;padding:14px;border:none;border-radius:8px;font-weight:bold;margin-top:10px;cursor:pointer}
+#telaSenha{position:fixed;inset:0;background:#000;z-index:999;display:flex;align-items:center;justify-content:center;padding:20px}
+</style>
+</head>
 <body>
 
 <div id="telaSenha">
 <div class="box" style="border-color:#ff4444">
 <h2 style="color:#ffcc00">🔒 AREA RESTRITA</h2>
-<p style="color:#ccc;font-size:13px">Esse gerador é só do admin. Digite a senha para entrar:</p>
+<p style="color:#ccc;font-size:13px">Esse gerador é só do admin.</p>
 <input type="password" id="inputSenha" placeholder="Digite sua senha">
 <button onclick="verificarSenha()" style="background:#ffcc00;color:#000">ENTRAR</button>
 <p id="erroSenha" style="color:#ff4444;display:none;font-size:12px;margin-top:8px">Senha errada!</p>
@@ -28,67 +29,49 @@ if('serviceWorker' in navigator){
 </div>
 
 <div class="box">
-<h2 style="color:#ffcc00">🔑 GERADOR DE CÓDIGOS - GRATIFLIX</h2>
+<h2 style="color:#ffcc00">🔑 GERADOR DE CÓDIGOS</h2>
 <p style="color:#aaa;font-size:12px">Use após confirmar PIX na chave 025.446.319-37</p>
-<label style="text-align:left;display:block">Plano pago:</label>
 <select id="plano">
 <option value="1">1 DIA - R$2,99</option>
 <option value="7">1 SEMANA - R$10,00</option>
 <option value="30" selected>1 MES - R$28,00</option>
 <option value="365">1 ANO - R$300,00</option>
 </select>
-<button onclick="gerarCodigo()" style="background:#ffcc00;color:#000">GERAR CÓDIGO DESBLOQUEIO</button>
-<div id="resultado" style="background:#222;border-radius:10px;padding:12px;margin:10px 0;font-weight:900;color:#00ff88;font-size:16px;word-break:break-all;min-height:40px;display:flex;align-items:center;justify-content:center"></div>
-<button onclick="copiarZap()" style="background:#25d366;color:#fff">📋 COPIAR E ENVIAR NO ZAP</button>
+<button onclick="gerarCodigo()" style="background:#ffcc00;color:#000">GERAR CODIGO</button>
+<div id="resultado" style="background:#222;border-radius:10px;padding:12px;margin:10px 0;font-weight:900;color:#00ff88;word-break:break-all;min-height:20px"></div>
+<button onclick="copiarZap()" style="background:#25d366;color:#fff">COPIAR E ENVIAR NO ZAP</button>
 <button onclick="sair()" style="background:#333;color:#fff;font-size:12px;margin-top:12px">SAIR / TROCAR SENHA</button>
 </div>
 
 <script>
-const SENHA_MESTRA = "GRATIDAO2026"; // <-- SUA SENHA AQUI, pode trocar
-const SEGREDO = "GRATIDAO41_BANCO_2026";
+const SENHA_MESTRA = "Jm13190330";
+const SEGREDO = "GRATIDA041_BANCO_2026";
 const KEY_AUTH = "grati_auth_admin";
 
-function gerarHash(s){let h=0;for(let i=0;i<s.length;i++){h=((h<<5)-h)+s.charCodeAt(i);h|=0;}return Math.abs(h).toString(36).toUpperCase();}
-
+function gerarHash(s){let h=0;for(let i=0;i<s.length;i++){h=(h<<5)-h+s.charCodeAt(i);h|=0}return Math.abs(h).toString(36)}
 function verificarSenha(){
-  let s = document.getElementById('inputSenha').value.trim();
-  if(s === SENHA_MESTRA){
-    localStorage.setItem(KEY_AUTH, "ok");
-    document.getElementById('telaSenha').style.display='none';
-  } else {
-    document.getElementById('erroSenha').style.display='block';
-  }
+let s=document.getElementById('inputSenha').value.trim();
+if(s===SENHA_MESTRA){localStorage.setItem(KEY_AUTH,"ok");document.getElementById('telaSenha').style.display='none';}
+else{document.getElementById('erroSenha').style.display='block';}
 }
-
-function checarLogin(){
-  if(localStorage.getItem(KEY_AUTH) === "ok"){
-    document.getElementById('telaSenha').style.display='none';
-  }
-}
-
-function sair(){
-  localStorage.removeItem(KEY_AUTH);
-  location.reload();
-}
-
+function checarLogin(){if(localStorage.getItem(KEY_AUTH)==="ok"){document.getElementById('telaSenha').style.display='none';}}
+function sair(){localStorage.removeItem(KEY_AUTH);location.reload();}
 function gerarCodigo(){
-  let dias = parseInt(document.getElementById('plano').value);
-  let expira = Date.now() + (dias * 24 * 60 * 60 * 1000);
-  let expira36 = expira.toString(36).toUpperCase();
-  let base = dias + "|" + expira;
-  let hash = gerarHash(base + "|" + SEGREDO).substring(0,6);
-  let codigo = "GRATI-" + dias + "-" + expira36 + "-" + hash;
-  document.getElementById('resultado').innerText = codigo;
+let dias=parseInt(document.getElementById('plano').value);
+let expira=Date.now()+(dias*24*60*60*1000);
+let expira36=expira.toString(36).toUpperCase();
+let base=dias+"|"+expira;
+let hash=gerarHash(base+"|"+SEGREDO).substring(0,6);
+let codigo="GRATI-"+dias+"-"+expira36+"-"+hash;
+document.getElementById('resultado').innerText=codigo;
 }
-
 function copiarZap(){
-  let codigo = document.getElementById('resultado').innerText;
-  if(!codigo){alert("Gere um codigo primeiro!");return;}
-  let texto = encodeURIComponent("✅ Seu codigo de desbloqueio liberado!\n\n" + codigo + "\n\nCole no app em VER PLANOS > JA TENHO CODIGO > DESBLOQUEAR AGORA\n\nObrigado!");
-  navigator.clipboard.writeText(codigo);
-  window.open("https://wa.me/?text=" + texto, "_blank");
+let codigo=document.getElementById('resultado').innerText;
+if(!codigo){alert('Gere um codigo primeiro');return}
+let texto=`✅ SEU ACESSO GRATIFLIX LIBERADO!\n\n🔑 Código: ${codigo}\n\nCole no app para desbloquear.`;
+navigator.clipboard.writeText(texto);
+window.open('https://wa.me/?text='+encodeURIComponent(texto),'_blank');
 }
-
 checarLogin();
 </script>
 </body>
