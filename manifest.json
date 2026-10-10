@@ -1,5 +1,5 @@
 {
-  "name": "GRATIFLIX ADMIN - Gerador de Códigos",
+  "name": "GRATIFLIX ADMIN",
   "short_name": "ADMIN",
   "start_url": "./",
   "display": "standalone",
@@ -8,6 +8,7 @@
   "icons": [{
     "src": "icone.png",
     "sizes": "512x512",
-    "type": "image/png"
+    "type": "image/png",
+    "purpose": "any maskable"
   }]
 }
