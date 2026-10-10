@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head><link rel="manifest" href="manifest.json">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gerador de Codigos - GRATIFLIX</title>
+<link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#ffcc00">
 <link rel="icon" href="icone.png">
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Gerador de Codigos - GRATIFLIX</title>
+<script>
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('sw.js')
+}
+</script>
 <style>
-body{font-family:Arial;background:#000;color:#fff;margin:0;padding:15px;display:flex;align-items:center;justify-content:center;min-height:100vh}
-.box{border:2px solid #ffcc00;border-radius:16px;padding:18px;max-width:400px;width:100%;background:#111;text-align:center}
-input,select{width:100%;padding:12px;border-radius:8px;border:1px solid #ccc;margin:8px 0;font-size:16px}
-button{width:100%;padding:14px;border:none;border-radius:10px;font-weight:900;font-size:16px;cursor:pointer;margin-top:8px}
-#telaSenha{position:fixed;inset:0;background:#000;z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px}
-</style>
-</head>
 <body>
 
 <div id="telaSenha">
